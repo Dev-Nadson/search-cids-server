@@ -1,0 +1,8 @@
+import type { FastifyInstance } from "fastify";
+import { cid_routes } from "./cid.routes.js";
+
+async function app_routes(app: FastifyInstance) {
+    app.register(cid_routes, { prefix: "/cids/" })
+}
+
+export { app_routes }
