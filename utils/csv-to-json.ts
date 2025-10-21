@@ -1,36 +1,35 @@
-// scripts/csv-to-json.js
 import * as fs from 'fs';
 
-// Lê o CSV (IMPORTANTE: encoding 'latin1' por causa do DATASUS)
-const csv = fs.readFileSync('./CID-10-SUBCATEGORIAS.CSV', 'latin1');
+const path = "/home/nadson/Pro-git/search-cids-server/src/data/csv/"
 
-// Processa linha por linha
+const csv = fs.readFileSync(`${path}CID-10-SUBCATEGORIAS.CSV`, 'latin1');
+
 const lines = csv.split('\n');
-const header = lines[0]; // SUBCAT;DESCRICAO
+const header = lines[0];
 
 const cids = [];
 
 for (let i = 1; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    if (!line) continue; // Pula linhas vazias
+    if (!line) continue;
 
-    const [code, name] = line.split(';');
+    const [SUBCAT, , , , DESCRICAO] = line.split(';');
 
-    if (code && name) {
+    if (SUBCAT) {
         cids.push({
-            code: code.trim(),
-            name: name.trim()
+            SUBCAT: SUBCAT.trim(),
+            DESCRICAO: DESCRICAO.trim(),
         });
     }
 }
 
-// Salva JSON
-fs.writeFileSync(
-    '../backend/src/data/cids.json',
+
+fs.appendFileSync(
+    '../src/data/json/cids2.json',
     JSON.stringify(cids, null, 2)
 );
 
 console.log(`✅ Convertidos ${cids.length} CIDs para JSON`);
-console.log(`📄 Arquivo salvo em: ./src/data/cids.json`);
+console.log(`📄 Arquivo salvo em: ../src/data/cids2.json`);
 console.log(`📊 Exemplo:`, cids[0]);
