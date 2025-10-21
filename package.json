@@ -12,5 +12,8 @@
   "description": "",
   "dependencies": {
     "fastify": "^5.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1"
   }
 }
