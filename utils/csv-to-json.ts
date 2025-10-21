@@ -1,11 +1,10 @@
 import * as fs from 'fs';
 
-const path = "/home/nadson/Pro-git/search-cids-server/src/data/csv/"
+const path = "/src/data/csv/"
 
 const csv = fs.readFileSync(`${path}CID-10-SUBCATEGORIAS.CSV`, 'latin1');
 
 const lines = csv.split('\n');
-const header = lines[0];
 
 const cids = [];
 
@@ -23,7 +22,6 @@ for (let i = 1; i < lines.length; i++) {
         });
     }
 }
-
 
 fs.appendFileSync(
     '../src/data/json/cids2.json',
