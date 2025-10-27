@@ -4,40 +4,40 @@ import path from 'path'
 function processarLinha(linha) {
     linha = linha.trimEnd();
 
-    const CO_PROCEDIMENTO = linha.substring(0, 10).trim();
-    const NO_PROCEDIMENTO = linha.substring(10, 260).trim();
-    const TP_COMPLEXIDADE = linha.substring(260, 261).trim();
-    const TP_SEXO = linha.substring(261, 262).trim();
-    const QT_MAXIMA_EXECUCAO = linha.substring(262, 266).trim();
-    const QT_DIAS_PERMANENCIA = linha.substring(266, 270).trim();
-    const QT_PONTOS = linha.substring(270, 274).trim();
-    const VL_IDADE_MINIMA = linha.substring(274, 278).trim();
-    const VL_IDADE_MAXIMA = linha.substring(278, 282).trim();
-    const VL_SH = linha.substring(282, 294).trim();
-    const VL_SA = linha.substring(294, 306).trim();
-    const VL_SP = linha.substring(306, 318).trim();
-    const CO_FINANCIAMENTO = linha.substring(318, 320).trim();
-    const CO_RUBRICA = linha.substring(320, 326).trim();
-    const QT_TEMPO_PERMANENCIA = linha.substring(326, 330).trim();
-    const DT_COMPETENCIA = linha.substring(330, 336).trim();
+    const procedure_code = linha.substring(0, 10).trim();
+    const procedure_name = linha.substring(10, 260).trim();
+    const complexity = linha.substring(260, 261).trim();
+    const gender = linha.substring(261, 262).trim();
+    const max_execution = linha.substring(262, 266).trim();
+    const days_permanence = linha.substring(266, 270).trim();
+    const points = linha.substring(270, 274).trim();
+    const min_age = linha.substring(274, 278).trim();
+    const max_age = linha.substring(278, 282).trim();
+    const vl_sh = linha.substring(282, 294).trim();
+    const vl_sa = linha.substring(294, 306).trim();
+    const vl_sp = linha.substring(306, 318).trim();
+    const financing_code = linha.substring(318, 320).trim();
+    const rubric_code = linha.substring(320, 326).trim();
+    const time_permanence = linha.substring(326, 330).trim();
+    const competence_date = linha.substring(330, 336).trim();
 
     return {
-        CO_PROCEDIMENTO,
-        NO_PROCEDIMENTO,
-        TP_COMPLEXIDADE,
-        TP_SEXO,
-        QT_MAXIMA_EXECUCAO: QT_MAXIMA_EXECUCAO ? parseInt(QT_MAXIMA_EXECUCAO) : null,
-        QT_DIAS_PERMANENCIA: QT_DIAS_PERMANENCIA ? parseInt(QT_DIAS_PERMANENCIA) : null,
-        QT_PONTOS: QT_PONTOS ? parseInt(QT_PONTOS) : null,
-        VL_IDADE_MINIMA: VL_IDADE_MINIMA ? parseInt(VL_IDADE_MINIMA) : null,
-        VL_IDADE_MAXIMA: VL_IDADE_MAXIMA ? parseInt(VL_IDADE_MAXIMA) : null,
-        VL_SH: VL_SH ? parseFloat(VL_SH) / 100 : null,
-        VL_SA: VL_SA ? parseFloat(VL_SA) / 100 : null,
-        VL_SP: VL_SP ? parseFloat(VL_SP) / 100 : null,
-        CO_FINANCIAMENTO,
-        CO_RUBRICA,
-        QT_TEMPO_PERMANENCIA: QT_TEMPO_PERMANENCIA ? parseInt(QT_TEMPO_PERMANENCIA) : null,
-        DT_COMPETENCIA
+        procedure_code,
+        procedure_name,
+        complexity,
+        gender,
+        max_execution: max_execution ? parseInt(max_execution) : null,
+        days_permanence: days_permanence ? parseInt(days_permanence) : null,
+        points: points ? parseInt(points) : null,
+        min_age: min_age ? parseInt(min_age) : null,
+        max_age: max_age ? parseInt(max_age) : null,
+        vl_sh: vl_sh ? parseFloat(vl_sh) / 100 : null,
+        vl_sa: vl_sa ? parseFloat(vl_sa) / 100 : null,
+        vl_sp: vl_sp ? parseFloat(vl_sp) / 100 : null,
+        financing_code,
+        rubric_code,
+        time_permanence: time_permanence ? parseInt(time_permanence) : null,
+        competence_date
     };
 }
 

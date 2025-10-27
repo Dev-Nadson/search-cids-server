@@ -4,14 +4,14 @@ import path from 'path'
 function processarLinha(linha) {
     linha = linha.trimEnd();
 
-    const CO_PROCEDIMENTO = linha.substring(0, 10).trim();
-    const CO_OCUPACAO = linha.substring(10, 16).trim();
-    const DT_COMPETENCIA = linha.substring(16, 22).trim();
+    const procedure_code = linha.substring(0, 10).trim();
+    const occupation_code = linha.substring(10, 16).trim();
+    const competence_date = linha.substring(16, 22).trim();
 
     return {
-        CO_PROCEDIMENTO,
-        CO_OCUPACAO,
-        DT_COMPETENCIA
+        procedure_code,
+        occupation_code,
+        competence_date
     };
 }
 

@@ -4,16 +4,16 @@ import path from 'path'
 function processarLinha(linha) {
     linha = linha.trimEnd();
 
-    const CO_PROCEDIMENTO = linha.substring(0, 10).trim();
-    const CO_CID = linha.substring(10, 14).trim();
-    const ST_PRINCIPAL = linha.substring(14, 15).trim();
-    const DT_COMPETENCIA = linha.substring(15, 21).trim();
+    const procedure_code = linha.substring(0, 10).trim();
+    const cid_code = linha.substring(10, 14).trim();
+    const is_principal = linha.substring(14, 15).trim();
+    const competence_date = linha.substring(15, 21).trim();
 
     return {
-        CO_PROCEDIMENTO,
-        CO_CID,
-        ST_PRINCIPAL,
-        DT_COMPETENCIA
+        procedure_code,
+        cid_code,
+        is_principal,
+        competence_date
     };
 }
 

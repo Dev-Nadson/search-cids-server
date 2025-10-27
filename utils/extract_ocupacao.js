@@ -4,8 +4,8 @@ import path from 'path'
 function processarLinha(linha) {
     linha = linha.trimEnd();
 
-    const CO_OCUPACAO = linha.substring(0, 6).trim();
-    const NO_OCUPACAO = linha.substring(6, 156).trim();
+    const occupation_code = linha.substring(0, 6).trim();
+    const name = linha.substring(6, 156).trim();
 
     return {
         CO_OCUPACAO,

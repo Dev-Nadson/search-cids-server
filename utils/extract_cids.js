@@ -4,20 +4,20 @@ import path from 'path'
 function processarLinha(linha) {
     linha = linha.trimEnd();
 
-    const CO_CID = linha.substring(0, 4).trim();
-    const NO_CID = linha.substring(4, 104).trim();
-    const TP_AGRAVO = linha.substring(104, 105).trim();
-    const TP_SEXO = linha.substring(105, 106).trim();
-    const TP_ESTADIO = linha.substring(106, 107).trim();
-    const VL_CAMPOS_IRRADIADOS = linha.substring(107, 111).trim();
+    const cid_code = linha.substring(0, 4).trim();
+    const description = linha.substring(4, 104).trim();
+    const injury_type = linha.substring(104, 105).trim();
+    const gender = linha.substring(105, 106).trim();
+    const stage = linha.substring(106, 107).trim();
+    const irradiated_fields = linha.substring(107, 111).trim();
 
     return {
-        CO_CID,
-        NO_CID,
-        TP_AGRAVO,
-        TP_SEXO,
-        TP_ESTADIO,
-        VL_CAMPOS_IRRADIADOS: VL_CAMPOS_IRRADIADOS ? parseInt(VL_CAMPOS_IRRADIADOS) : null
+        cid_code,
+        description,
+        injury_type,
+        gender,
+        stage,
+        irradiated_fields: irradiated_fields ? parseInt(irradiated_fields) : null
     };
 }
 

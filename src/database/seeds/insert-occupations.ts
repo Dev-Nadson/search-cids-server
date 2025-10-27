@@ -1,19 +1,14 @@
 import type { Knex } from "knex";
-import * as fs from "fs"
-
-interface IOccupation {
-    CO_OCUPACAO: string,
-    NO_OCUPACAO: string
-}
-
-const json_path = "src/data/json/ocupacao.json"
 
 export async function seed(knex: Knex): Promise<void> {
-
-    const data = await fs.promises.readFile(json_path, { encoding: 'latin1' });
-    const occupations: IOccupation[] = JSON.parse(data)
-
+    // Deletes ALL existing entries
     await knex("occupations").del();
 
-    await knex.batchInsert("occupations", occupations, 1000)
+    // Inserts seed entries
+    await knex("occupations").insert([
+        { "occupation_code": "010105", "name": "Oficial General da Aeronáutica" },
+        { "occupation_code": "010104", "name": "Oficial General da Aeronáutica" },
+        { "occupation_code": "010103", "name": "Oficial General da Aeronáutica" },
+        { "occupation_code": "010102", "name": "Oficial General da Aeronáutica" },
+    ]);
 };

@@ -9,9 +9,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string("gender", 1);
         table.string("stage", 1);
         table.integer("irradiated_fields");
-        table.string("competence_date", 6).notNullable();
         table.index("cid_code");
-        table.index("competence_date");
     });
 }
 
