@@ -8,8 +8,8 @@ function processarLinha(linha) {
     const name = linha.substring(6, 156).trim();
 
     return {
-        CO_OCUPACAO,
-        NO_OCUPACAO
+        occupation_code,
+        name
     };
 }
 
