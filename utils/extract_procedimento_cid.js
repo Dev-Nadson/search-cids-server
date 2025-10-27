@@ -28,16 +28,16 @@ function processarArquivo(textoCompleto) {
 }
 
 
-const caminhoArquivo = "src/data/txt/"
+const caminhoArquivo = "src/database/seeds/data/txt/"
 
 try {
-    const dadosTxt = fs.readFileSync(`${caminhoArquivo}rl_procedimento_cid.txt`, 'utf-8');
+    const dadosTxt = fs.readFileSync(`${caminhoArquivo}rl_procedimento_cid.txt`, 'latin1');
 
     const resultado = processarArquivo(dadosTxt);
 
     console.log(JSON.stringify(resultado, null, 2));
 
-    const caminhoSaida = path.join("src/data/json/procedimento_cid.json");
+    const caminhoSaida = path.join("src/database/seeds/data/json/procedimento_cid.json");
 
     const dirSaida = path.dirname(caminhoSaida);
     if (!fs.existsSync(dirSaida)) {
