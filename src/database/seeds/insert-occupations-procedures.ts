@@ -1,5 +1,5 @@
 import type { Knex } from "knex";
-import procedimento_ocupacao from "../../data/json/procedimento_ocupacao.json" with {type: 'json'}
+import procedimento_ocupacao from "./data/json/procedimento_ocupacao.json" with {type: 'json'}
 
 export async function seed(knex: Knex): Promise<void> {
 

@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
-import { cid_routes } from "./cid.routes.js";
+import { data_routes } from "./data.routes.js";
 
 async function app_routes(app: FastifyInstance) {
-    app.register(cid_routes)
+    app.register(data_routes)
 }
 
 export { app_routes }
