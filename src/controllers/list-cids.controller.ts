@@ -3,7 +3,6 @@ import { list_cids_repository } from "../repositories/list-cids.repo.js";
 
 async function list_cids_controller(req: FastifyRequest, reply: FastifyReply) {
     try {
-
         const data = await list_cids_repository()
         reply.status(200).send(data)
 
@@ -13,7 +12,6 @@ async function list_cids_controller(req: FastifyRequest, reply: FastifyReply) {
             message: "Erro ao carregar os dados",
             data: err
         })
-
     }
 }
 
