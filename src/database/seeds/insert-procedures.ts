@@ -1,14 +1,8 @@
 import type { Knex } from "knex";
-
+import procedimento from "../../data/json/procedimento.json" with {type: 'json'}
 
 export async function seed(knex: Knex): Promise<void> {
-    // Deletes ALL existing entries
-    await knex("table_name").del();
+    await knex("procedures").del();
 
-    // Inserts seed entries
-    await knex("table_name").insert([
-        { id: 1, colName: "rowValue1" },
-        { id: 2, colName: "rowValue2" },
-        { id: 3, colName: "rowValue3" }
-    ]);
+    await knex.batchInsert("procedures", procedimento, 500)
 };

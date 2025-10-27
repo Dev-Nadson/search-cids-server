@@ -1,19 +1,9 @@
 import type { Knex } from "knex";
-import fs from "fs"
-import path from "path"
-
-interface ICid {
-
-}
+import cids from "../../data/json/cid.json" with {type: 'json'}
 
 export async function seed(knex: Knex): Promise<void> {
-    // Deletes ALL existing entries
-    await knex("table_name").del();
 
-    // Inserts seed entries
-    await knex("table_name").insert([
-        { id: 1, colName: "rowValue1" },
-        { id: 2, colName: "rowValue2" },
-        { id: 3, colName: "rowValue3" }
-    ]);
+    await knex("cids").del();
+
+    await knex.batchInsert("cids", cids, 500);
 };

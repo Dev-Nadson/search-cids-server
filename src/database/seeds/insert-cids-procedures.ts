@@ -1,15 +1,9 @@
 import type { Knex } from "knex";
-import fs from "fs"
-import path from "path"
-
-interface procedures {
-
-}
+import procedimento_cid from "../../data/json/procedimento_cid.json" with {type: 'json'}
 
 export async function seed(knex: Knex): Promise<void> {
+
     await knex("cids_procedures").del();
 
-    const data = 10
-
-    await knex("cids_procedures").insert([]);
+    await knex.batchInsert("cids_procedures", procedimento_cid as any, 500);
 };
