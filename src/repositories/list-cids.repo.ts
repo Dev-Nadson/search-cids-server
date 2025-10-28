@@ -10,10 +10,6 @@ async function list_cids_repository({ page, limit }: queryType) {
 
     const total_pages = Math.ceil(total / limit)
 
-    if (page > total_pages) {
-        throw new BadRequestError("Número de página inválido")
-    }
-
     const data = await Knex("cids").select("id", "cid_code", "description", "injury_type", "gender", "stage").limit(limit).offset(offset)
 
     return {
