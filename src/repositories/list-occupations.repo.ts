@@ -1,20 +1,9 @@
-import { Knex } from "../database/config.js";
+import { pagination } from "../libs/pagination.js";
 import type { queryType } from "../schemas/page.schema.js";
-import { BadRequestError } from "../libs/errors/app.errors.js";
 
-async function list_occupations_repository({ page, limit }: queryType) {
-    const offset = (page - 1) * limit
-    const t = await Knex("occupations").count("* as total").first()
-    const total = Number(t?.total ?? 0)
-
-    const total_pages = Math.ceil(total / limit)
-
-    const data = await Knex("occupations").select().limit(limit).offset(offset)
-
-    return {
-        pagination: { page, limit, total, total_pages },
-        data: data
-    }
+async function list_occupations_repository(pages: queryType) {
+    const data = await pagination("occupations", pages)
+    return data
 }
 
 export { list_occupations_repository }
