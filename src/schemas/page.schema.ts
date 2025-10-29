@@ -8,4 +8,10 @@ const querySchema = z.object({
 
 type queryType = z.infer<typeof querySchema>
 
-export { querySchema, type queryType }
+type searchType = {
+    code: string
+    name: string
+}
+
+export { querySchema }
+export type { queryType, searchType }
