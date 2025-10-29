@@ -6,7 +6,7 @@ import { error_handler_middleware } from "./middlewares/error-handler.middleware
 
 function create_app() {
     const app = fastify()
-    //app.register(cors, { origin: env.ORIGINS, credentials: true })
+    app.register(cors, { origin: env.ORIGINS, credentials: true })
     app.setErrorHandler(error_handler_middleware)
     app.register(app_routes)
     return app
