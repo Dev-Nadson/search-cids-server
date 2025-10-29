@@ -1,5 +1,5 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import { list_occupations_procedures_repository } from "../repositories/occupatios-procedures.repo.js";
+import { list_occupations_procedures_repository } from "../repositories/list-occupatios-procedures.repo.js";
 import { querySchema } from "../schemas/page.schema.js";
 
 async function list_occupations_procedures_controller(req: FastifyRequest, reply: FastifyReply) {
