@@ -1,5 +1,7 @@
 Sistema de CID:
 Filtrar procedimento por CBO e os CIDS de cada procedimento
+<<<<<<< HEAD
+=======
 
 Arquivos-chave (resumo rápido)
 
@@ -111,3 +113,4 @@ Precisa de filtros complexos, paginação ou atualizações frequentes.
 Deseja índices e consultas eficientes (Postgres + índices, ou ElasticSearch para busca full-text).
 
 Sugestão prática: gerar JSONs
+>>>>>>> bfeffffe4e3bd8e51d61f28c2cc29b255a7dd6b7
