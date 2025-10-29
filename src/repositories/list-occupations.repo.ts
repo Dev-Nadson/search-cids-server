@@ -1,8 +1,13 @@
 import { pagination } from "../libs/pagination.js";
-import type { queryType } from "../schemas/page.schema.js";
+import type { queryType, searchType } from "../schemas/page.schema.js";
 
 async function list_occupations_repository(pages: queryType) {
-    const data = await pagination("occupations", pages, "occupation_code")
+    const searchParams: searchType = {
+        code: "occupation_code",
+        name: "name"
+    }
+
+    const data = await pagination("occupations", pages, searchParams)
     return data
 }
 
