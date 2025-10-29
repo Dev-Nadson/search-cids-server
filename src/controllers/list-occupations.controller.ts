@@ -3,8 +3,8 @@ import { list_occupations_repository } from "../repositories/list-occupations.re
 import { querySchema } from "../schemas/page.schema.js";
 
 async function list_occupations_controller(req: FastifyRequest, reply: FastifyReply) {
-    const { page, limit } = querySchema.parse(req.query)
-    const data = await list_occupations_repository({ page, limit })
+    const { page, limit, term } = querySchema.parse(req.query)
+    const data = await list_occupations_repository({ page, limit, term })
     reply.status(200).send(data)
 }
 

@@ -1,7 +1,7 @@
 import { Knex } from "../database/config.js";
 import type { queryType } from "../schemas/page.schema.js";
 
-async function pagination(table_name: string, pages: queryType, select_properties?: string[]) {
+async function pagination(table_name: string, pages: queryType, identifier?: string, select_properties?: string[]) {
     const { page, limit, term } = pages
     const offset = (page - 1) * limit
 
@@ -9,13 +9,13 @@ async function pagination(table_name: string, pages: queryType, select_propertie
 
     if (term) {
         [count, data] = await Promise.all([
-            await Knex(table_name).count("* as total").where("cid_code", "LIKE", `%${term}%`).first(),
-            await Knex(table_name).select(select_properties || "").limit(limit).offset(offset).where("cid_code", "LIKE", `%${term}%`)
+            Knex(table_name).count("* as total").where(identifier || "", "LIKE", `%${term}%`).first(),
+            Knex(table_name).select(select_properties || "").limit(limit).offset(offset).where(identifier || "", "LIKE", `%${term}%`)
         ])
     } else {
         [count, data] = await Promise.all([
-            await Knex(table_name).count("* as total").first(),
-            await Knex(table_name).select(select_properties || "").limit(limit).offset(offset)
+            Knex(table_name).count("* as total").first(),
+            Knex(table_name).select(select_properties || "").limit(limit).offset(offset)
         ])
     }
 
