@@ -4,7 +4,7 @@ import type { queryType, searchType } from "../schemas/page.schema.js";
 async function list_occupations_repository(pages: queryType) {
     const searchParams: searchType = {
         code: "occupation_code",
-        name: "name"
+        param: "name"
     }
 
     const data = await pagination("occupations", pages, searchParams)

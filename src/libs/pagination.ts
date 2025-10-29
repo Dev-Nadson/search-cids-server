@@ -9,9 +9,9 @@ async function pagination(table_name: string, pages: queryType, search_params?: 
     let dataQuery = Knex(table_name)
 
     if (term && search_params) {
-        const { name, code } = search_params
-        countQuery = countQuery.where(name, "LIKE", `%${term}%`).orWhere(code, "LIKE", `${term}`),
-            dataQuery = dataQuery.where(name, "LIKE", `%${term}%`).orWhere(code, "LIKE", `${term}`)
+        const { code, param } = search_params
+        countQuery = countQuery.where(code, "LIKE", `%${term}%`).orWhere(param, "LIKE", `%${term}%`),
+            dataQuery = dataQuery.where(code, "LIKE", `%${term}%`).orWhere(param, "LIKE", `%${term}%`)
     }
 
     const [count, data] = await Promise.all([

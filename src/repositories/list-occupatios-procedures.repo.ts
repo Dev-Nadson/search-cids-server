@@ -2,7 +2,7 @@ import { pagination } from "../libs/pagination.js";
 import type { queryType } from "../schemas/page.schema.js";
 
 async function list_occupations_procedures_repository(pages: queryType) {
-    const data = await pagination("occupations-procedures", pages)
+    const data = await pagination("occupations_procedures", pages)
     return data
 }
 

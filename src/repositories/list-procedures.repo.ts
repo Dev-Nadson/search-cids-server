@@ -4,7 +4,7 @@ import type { queryType, searchType } from "../schemas/page.schema.js";
 async function list_procedures_repository(pages: queryType) {
     const searchParams: searchType = {
         code: "procedure_code",
-        name: "procedure_name"
+        param: "procedure_name"
     }
 
     const data = await pagination("procedures", pages, searchParams)

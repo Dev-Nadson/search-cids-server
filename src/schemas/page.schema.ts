@@ -10,7 +10,7 @@ type queryType = z.infer<typeof querySchema>
 
 type searchType = {
     code: string
-    name: string
+    param: string
 }
 
 export { querySchema }
