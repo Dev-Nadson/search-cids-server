@@ -1,2 +1,116 @@
 Sistema de CID:
 Filtrar procedimento por CBO e os CIDS de cada procedimento
+<<<<<<< HEAD
+=======
+
+Arquivos-chave (resumo rápido)
+
+Mapeamento CBO ↔ Procedimento:
+rl_procedimento_ocupacao.txt (layout: rl_procedimento_ocupacao_layout.txt)
+Campos principais: CO_PROCEDIMENTO (10) — CO_OCUPACAO (6) — DT_COMPETENCIA (6)
+
+Mapeamento Procedimento ↔ CID:
+rl_procedimento_cid.txt (layout: rl_procedimento_cid_layout.txt)
+Campos principais: CO_PROCEDIMENTO (10) — CO_CID (4) — ST_PRINCIPAL (1) — DT_COMPETENCIA (6)
+
+Descritivos / lookup:
+tb_procedimento.txt (layout: tb_procedimento_layout.txt)
+CO_PROCEDIMENTO, NO_PROCEDIMENTO, preços (VL_SH, VL_SA, VL_SP), TP_SEXO, limites de idade, CO_FINANCIAMENTO, DT_COMPETENCIA
+tb_cid.txt (layout: tb_cid_layout.txt)
+CO_CID, NO_CID, TP_AGRAVO, TP_SEXO, etc.
+tb_ocupacao.txt (layout: tb_ocupacao_layout.txt)
+CO_OCUPACAO, NO_OCUPACAO
+
+2) Estrutura de relacionamento (chaves)
+Chaves primárias sugeridas:
+tb_procedimento: CO_PROCEDIMENTO (+ DT_COMPETENCIA para versão)
+tb_cid: CO_CID
+tb_ocupacao: CO_OCUPACAO
+
+Relações (tabelas de ligação):
+rl_procedimento_ocupacao.CO_PROCEDIMENTO → tb_procedimento.CO_PROCEDIMENTO
+rl_procedimento_ocupacao.CO_OCUPACAO → tb_ocupacao.CO_OCUPACAO
+rl_procedimento_cid.CO_PROCEDIMENTO → tb_procedimento.CO_PROCEDIMENTO
+rl_procedimento_cid.CO_CID → tb_cid.CO_CID
+
+Campos importantes para filtrar/versões:
+
+DT_COMPETENCIA: data/versão (use para escolher versão mais recente ou compatível)
+
+ST_PRINCIPAL: indica CID principal ('S' = sim)
+
+TP_SEXO, VL_IDADE_MINIMA, VL_IDADE_MAXIMA: restrições clínico-demográficas
+
+3) Formato dos códigos e particularidades
+
+CO_PROCEDIMENTO: string fixa de 10 caracteres (pode conter zeros à esquerda).
+
+CO_OCUPACAO: 6 caracteres (char).
+
+CO_CID: 4 caracteres (ex.: A00, F32 — cuidado com padding/truncamento).
+
+Arquivos de entrada: fixed-width (encoding comum: latin1).
+
+Atenção: campos descritivos longos (ex.: NO_PROCEDIMENTO até 250 chars).
+
+4) Possíveis armadilhas / atenção prática
+
+Encoding: usar latin1 ao ler (acentuação e caracteres especiais).
+
+Fixed-width parsing: usar os layouts .txt para cortar colunas corretamente; não confiar em split por separador.
+
+Zeros à esquerda: manter como string (não converter para int).
+
+Versões/duplicatas: uma combinação (CO_..., DT_COMPETENCIA) pode ter múltiplas linhas — escolha política (ex.: usar a maior DT_COMPETENCIA válida).
+
+Campos nulos/placeholder: SIGTAP frequentemente usa 9999... ou espaços — trate como null.
+
+ST_PRINCIPAL: verifique se 'S' indica principal; pode haver múltiplos CIDs por procedimento.
+
+Regras de sexo/idade: filtre quando necessário.
+
+5) Fluxo ideal de consultas (SQL / lógico)
+
+Consulta típica (SQL simplificada — versão mais recente por DT_COMPETENCIA):
+
+-- 1) escolher competência válida (ex: '202501')
+WITH proc AS (
+  SELECT p.*
+  FROM tb_procedimento p
+  WHERE p.DT_COMPETENCIA = '202501' -- ou a mais recente <= data desejada
+)
+SELECT o.CO_OCUPACAO, o.NO_OCUPACAO,
+       p.CO_PROCEDIMENTO, p.NO_PROCEDIMENTO,
+       c.CO_CID, c.NO_CID, rc.ST_PRINCIPAL
+FROM rl_procedimento_ocupacao ro
+JOIN tb_ocupacao o ON o.CO_OCUPACAO = ro.CO_OCUPACAO
+JOIN proc p ON p.CO_PROCEDIMENTO = ro.CO_PROCEDIMENTO
+LEFT JOIN rl_procedimento_cid rc ON rc.CO_PROCEDIMENTO = p.CO_PROCEDIMENTO
+LEFT JOIN tb_cid c ON c.CO_CID = rc.CO_CID
+WHERE ro.DT_COMPETENCIA = '202501'
+  AND (rc.DT_COMPETENCIA = '202501' OR rc.DT_COMPETENCIA IS NULL)
+;
+
+
+Filtrar por sexo/idade/ST_PRINCIPAL conforme regra do seu produto.
+
+6) JSON vs Banco de Dados (recomendação)
+
+JSON é viável se:
+
+Volume moderado (algumas dezenas de MBs — resposta rápida do cliente possível).
+
+Uso majoritariamente leitura e você puder gerar JSONs pré-indexados.
+
+Você aceita carregar o JSON inteiro na memória (ou usá-lo com um mecanismo de busca local).
+
+Banco de Dados recomendado se:
+
+Volume grande (centenas MBs / GB) ou consultas dinâmicas e concorrentes.
+
+Precisa de filtros complexos, paginação ou atualizações frequentes.
+
+Deseja índices e consultas eficientes (Postgres + índices, ou ElasticSearch para busca full-text).
+
+Sugestão prática: gerar JSONs
+>>>>>>> bfeffffe4e3bd8e51d61f28c2cc29b255a7dd6b7
