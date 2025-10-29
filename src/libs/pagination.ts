@@ -1,14 +1,14 @@
 import { Knex } from "../database/config.js";
 import type { queryType, searchType } from "../schemas/page.schema.js";
 
-async function pagination(table_name: string, pages: queryType, search_params?: searchType, select_properties?: string[]) {
+async function pagination(table_name: string, pages: queryType, search_params: searchType, select_properties?: string[]) {
     const { page, limit, term } = pages
     const offset = (page - 1) * limit
 
     let countQuery = Knex(table_name)
     let dataQuery = Knex(table_name)
 
-    if (term && search_params) {
+    if (term) {
         const { code, param } = search_params
         countQuery = countQuery.where(code, "LIKE", `%${term}%`).orWhere(param, "LIKE", `%${term}%`),
             dataQuery = dataQuery.where(code, "LIKE", `%${term}%`).orWhere(param, "LIKE", `%${term}%`)
